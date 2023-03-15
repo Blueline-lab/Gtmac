@@ -117,9 +117,9 @@ int main(int argc, char** argv) {
         std::string arg = argv[1];
         if (arg == "-d") {
             std::vector<std::string> search_element = sort_mac(exec("sudo iwlist wlp2s0 scanning"));    //First time with -d arg we discover the environement and get all the addresse we want to excepts
-            mac_addresses_e_write(search_element);
             std::vector<std::string> read_for_compare = mac_addresses_e_read();
             std::vector<std::string> add_element = delete_same_values(read_for_compare, search_element);
+            mac_addresses_e_write(add_element);
         }
         
         if(arg == "-g")
