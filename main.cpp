@@ -6,6 +6,8 @@
 #include <vector>
 #include <stdio.h>
 #include <algorithm>
+#include <unistd.h>
+#include <ctime>
 
 
 
@@ -116,10 +118,16 @@ int main(int argc, char** argv) {
         
         std::string arg = argv[1];
         if (arg == "-d") {
-            std::vector<std::string> search_element = sort_mac(exec("sudo iwlist wlp2s0 scanning"));    //First time with -d arg we discover the environement and get all the addresse we want to excepts
-            std::vector<std::string> read_for_compare = mac_addresses_e_read();
-            std::vector<std::string> add_element = delete_same_values(read_for_compare, search_element);
-            mac_addresses_e_write(add_element);
+            bool looper = true;
+            while(looper)
+            {
+                std::vector<std::string> search_element = sort_mac(exec("sudo iwlist wlp2s0 scanning"));    //First time with -d arg we discover the environement and get all the addresse we want to excepts
+                std::vector<std::string> read_for_compare = mac_addresses_e_read();
+                std::vector<std::string> add_element = delete_same_values(read_for_compare, search_element);
+                mac_addresses_e_write(add_element);
+                sleep(5);
+            }
+            
         }
         
         if(arg == "-g")
@@ -131,6 +139,34 @@ int main(int argc, char** argv) {
            {
             std::cout<<i<<std::endl;
            }
+        }
+
+        if(arg == "-w")
+        {
+            std::string mac_to_research;
+            std::cout<<"Enter the mac you want to detect : \n"<<std::endl;
+            std::cin>>mac_to_research;
+            std::cout<<"If "<<mac_to_research<<" is detected i will inform you."<<std::endl;
+            for (std::string i : mac_addresses_e_read())
+            {
+                if (i == mac_to_research)
+                {
+                    std::cout<<mac_to_research<<" is already near of you"<<std::endl;
+                }
+            }
+            while(1)
+            {
+                std::vector<std::string> search_element = sort_mac(exec("sudo iwlist wlp2s0 scanning"));
+                for (std::string j : search_element)
+                {
+                    if (j == mac_to_research)
+                    {   
+                        time_t now = time(0);
+                        std::cout<<"Find "<<mac_to_research<<" in your circle at timestamp : "<<now<<std::endl;
+                    }
+                }
+                sleep(5);
+            }
         }
         
     }   
