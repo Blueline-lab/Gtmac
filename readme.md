@@ -1,16 +1,21 @@
 First use << macircle -d >> 
 
-For discover the devices around you and make exception on it
+For discover the devices around you and make some exceptions.
 
-Don't move your devices between the two commands
 
-Secondly when the device you want to get the mac come near of you
+
+Secondly when the devices you want to get the mac address come near of you
 
 use <<macircle -g>>
   
-Finnaly and by deduction you will see appear the address of the device you want to know.
+By deduction you will see appear the address of the device you want to know. (Don't work with dynamic mac address process)
   
   
-The device you search should come in your circle alone, if not you will don't know wich are the researched device.
+The device you search should come in your circle alone, if not you can't know wich are the researched device.
   
-Be alert of the new devices enter on your circle.
+
+Finally with <<macircle -w>> enter the mac address you want to detect, if the device come near of you, you get notified with the timestamp of the detection.
+
+
+
+
